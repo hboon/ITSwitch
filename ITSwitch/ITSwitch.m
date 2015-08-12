@@ -289,6 +289,7 @@ static CGFloat const kDisabledOpacity = 0.5f;
     self.draggingTowardsOn = NO;
     
     [self reloadLayer];
+
 }
 
 - (void)moveLeft:(id)sender {
@@ -373,13 +374,11 @@ static CGFloat const kDisabledOpacity = 0.5f;
 
 - (void)_invokeTargetAction {
     if (self.target && self.action) {
-        NSMethodSignature *signature = [[self.target class] instanceMethodSignatureForSelector:self.action];
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-        [invocation setTarget:self.target];
-        [invocation setSelector:self.action];
-        [invocation setArgument:(void *)&self atIndex:2];
-        
-        [invocation invoke];
+        if ([NSStringFromSelector(self.action) hasSuffix:@":"]) {
+            [self.target performSelector:self.action withObject:self];
+        } else {
+            [self.target performSelector:self.action withObject:nil];
+        }
     }
 }
 
