@@ -66,6 +66,7 @@ static CGFloat const kDisabledOpacity = 0.5f;
 
 @implementation ITSwitch
 @synthesize tintColor = _tintColor;
+@synthesize disabledBackgroundColor = _disabledBackgroundColor;
 
 
 
@@ -191,7 +192,7 @@ static CGFloat const kDisabledOpacity = 0.5f;
             _backgroundLayer.backgroundColor = [self.tintColor CGColor];
         } else {
             _backgroundLayer.borderColor = [kDisabledBorderColor CGColor];
-            _backgroundLayer.backgroundColor = [kDisabledBackgroundColor CGColor];
+            _backgroundLayer.backgroundColor = [self.disabledBackgroundColor CGColor];
         }
         
         // ------------------------------- Animate Enabled-Disabled state
@@ -360,6 +361,18 @@ static CGFloat const kDisabledOpacity = 0.5f;
 - (void)setTintColor:(NSColor *)tintColor {
     _tintColor = tintColor;
     
+    [self reloadLayer];
+}
+
+- (NSColor *)disabledBackgroundColor {
+    if (!_disabledBackgroundColor) return kDisabledBackgroundColor;
+
+    return _disabledBackgroundColor;
+}
+
+- (void)setDisabledBackgroundColor:(NSColor *)disabledBackgroundColor {
+    _disabledBackgroundColor = disabledBackgroundColor;
+
     [self reloadLayer];
 }
 

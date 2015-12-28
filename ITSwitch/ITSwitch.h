@@ -24,4 +24,9 @@ IB_DESIGNABLE
  */
 @property (nonatomic, strong) IBInspectable NSColor *tintColor;
 
+/**
+ *  @property disabledBackgroundColor - Gets or sets the switches background color when switch is in the unchecked state
+ */
+@property (nonatomic, strong) IBInspectable NSColor *disabledBackgroundColor;
+
 @end
